@@ -50,4 +50,22 @@ public class CourseRepositoryTest {
 		Course course = repository.findById(10002L);
 		assertNull(course);
 	}
+
+	@Test
+	@DirtiesContext    // spring automatically reset the data
+	public void saveById_basic() {
+		Course course = repository.findById(10001L);
+		course.setName("Jpa in 50 steps - Updated");
+		repository.save(course);
+
+		Course updatedCourse = repository.findById(10001L);
+		assertEquals("Jpa in 50 steps - Updated", updatedCourse.getName());
+	}
+
+	@Test
+	@DirtiesContext
+	public void playWithEntityManager() {
+
+		repository.playWithEntityManager();
+	}
 }
