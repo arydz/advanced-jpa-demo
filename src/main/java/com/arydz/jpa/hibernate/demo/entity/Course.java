@@ -11,12 +11,15 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Getter
 @Entity
+//@Table(name = "CourseDetails") // it's used to define table name
 @ToString(exclude = "id")
 public class Course {
 
@@ -25,6 +28,7 @@ public class Course {
 	private Long id;
 
 	@Setter
+//	@Column(nullable = false)	// In video where described other useful @Column attributes
 	private String name;
 
 	// This is constructor only for JPA, to created this specified bean
