@@ -55,17 +55,14 @@ public class CourseRepository {
 		entityManager.persist(course);
 		Course courseNext = new Course("Angular JS in 100 steps");
 		entityManager.persist(courseNext);
-		entityManager.flush(); // Changes that will be made until flush, will be send to database.
-		// It's important when we are using clear or detach method. If we don't flush data and next we will clear entity manager, then it won't
-		// know wat to track and send to database. No persistence operation will be invoked!
-
-		entityManager.clear(); // This detach all tracked objects in current transaction - it's instead of those two detach method invokes
-		//entityManager.detach(course); // This method cause that changes are no longer tracked for this object!
-		//entityManager.detach(courseNext); // This method cause that changes are no longer tracked for this object!
+		entityManager.flush();
 
 		course.setName("Web Services in 100 steps - Updated");
-//		entityManager.flush();
 		courseNext.setName("Angular JS in 100 steps - Updated");
-//		entityManager.flush();
+
+		// It's retrieve specified object from database and omits changes. All changes to this object are lost
+		entityManager.refresh(course);
+
+		entityManager.flush();
 	}
 }
