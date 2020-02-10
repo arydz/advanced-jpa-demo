@@ -53,16 +53,8 @@ public class CourseRepository {
 
 		Course course = new Course("Web Services in 100 steps");
 		entityManager.persist(course);
-		Course courseNext = new Course("Angular JS in 100 steps");
-		entityManager.persist(courseNext);
-		entityManager.flush();
 
-		course.setName("Web Services in 100 steps - Updated");
-		courseNext.setName("Angular JS in 100 steps - Updated");
-
-		// It's retrieve specified object from database and omits changes. All changes to this object are lost
-		entityManager.refresh(course);
-
-		entityManager.flush();
-	}
+		Course courseNext = findById(10001L);
+		courseNext.setName("Jpa in 50 steps - Updated");
+}
 }

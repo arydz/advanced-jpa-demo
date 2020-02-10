@@ -29,19 +29,19 @@ public class JPQLTest {
 
 	@Test
 	public void jpql_raw() {
-		List resultList = em.createQuery("select c from Course c").getResultList();
+		List resultList = em.createNamedQuery("get_all_courses").getResultList();
 		log.info("List {}", resultList);
 	}
 
 	@Test
 	public void jpql_typed() {
-		List<Course> resultList = em.createQuery("select c from Course c", Course.class).getResultList();
+		List<Course> resultList = em.createNamedQuery("get_all_courses", Course.class).getResultList();
 		log.info("List {}", resultList);
 	}
 
 	@Test
 	public void jpql_where() {
-		List<Course> resultList = em.createQuery("select c from Course c where name like '%100 steps'", Course.class).getResultList();
+		List<Course> resultList = em.createNamedQuery("get_100_steps_courses", Course.class).getResultList();
 		log.info("List {}", resultList);
 	}
 }
