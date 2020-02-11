@@ -12,6 +12,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -29,9 +30,13 @@ public class StudentRepositoryTest {
 
 	// Tests are invoked without order!
 	@Test
+	@Transactional // Without it there would be LazyInitializationException. That's because only  entity manager find method is in transaction
+	// (starts and end in there) and hibernate is trying to retrieve passport in the same transaction but later, we need a sessions.
+	// So we need the transaction to retrieve passport details. That solves the problem
 	public void retrieveStudentAndPassportDetails() {
 		Student student = em.find(Student.class, 20001L);
 		log.info("Student -> {}", student);
+		// Hibernate know how to retrieve this entity, because of mapping
 		log.info("Passport -> {}", student.getPassport());
 	}
 

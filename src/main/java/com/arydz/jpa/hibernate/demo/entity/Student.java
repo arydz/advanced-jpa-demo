@@ -13,6 +13,7 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -32,7 +33,8 @@ public class Student {
 
 	// Creates foreign key of passport table
 	// All one to one relations are default eager fetch, so when retrieving Student we are also getting passport entity
-	@OneToOne
+	// Eager fetching might cause some performance issues!
+	@OneToOne(fetch = FetchType.LAZY)
 	private Passport passport;
 
 	protected Student() {
