@@ -31,6 +31,7 @@ public class Student {
 	private String name;
 
 	// Creates foreign key of passport table
+	// All one to one relations are default eager fetch, so when retrieving Student we are also getting passport entity
 	@OneToOne
 	private Passport passport;
 
