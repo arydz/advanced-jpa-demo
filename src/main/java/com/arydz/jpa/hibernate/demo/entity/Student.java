@@ -1,0 +1,43 @@
+/**
+ * ------------------------------------------------------------
+ * Copyright (c) PUMA SE
+ * This software is the proprietary information of PUMA SE
+ * All Right Reserved.
+ * ------------------------------------------------------------
+ */
+package com.arydz.jpa.hibernate.demo.entity;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity
+@Getter
+@Setter
+@ToString
+public class Student {
+
+	@Id
+	@GeneratedValue
+	private Long id;
+
+	@Column(nullable = false)
+	private String name;
+
+	// Creates foreign key of passport table
+	@OneToOne
+	private Passport passport;
+
+	protected Student() {
+	}
+
+	public Student(String name) {
+		this.name = name;
+	}
+}
