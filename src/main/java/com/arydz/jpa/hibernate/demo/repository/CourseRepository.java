@@ -56,5 +56,5 @@ public class CourseRepository {
 
 		Course courseNext = findById(10001L);
 		courseNext.setName("Jpa in 50 steps - Updated");
-}
+	}
 }

@@ -31,7 +31,7 @@ public class StudentRepositoryTest {
 
 	// Tests are invoked without order!
 	@Test
-	@Transactional // Without it there would be LazyInitializationException. That's because only  entity manager find method is in transaction
+	@Transactional // Without it there would be LazyInitializationException. That's because only entity manager find method is in transaction
 	// (starts and end in there) and hibernate is trying to retrieve passport in the same transaction but later, we need a sessions.
 	// So we need the transaction to retrieve passport details. That solves the problem
 	public void retrieveStudentAndPassportDetails() {
@@ -39,6 +39,15 @@ public class StudentRepositoryTest {
 		log.info("Student -> {}", student);
 		// Hibernate know how to retrieve this entity, because of mapping
 		log.info("Passport -> {}", student.getPassport());
+	}
+
+	@Test
+	@Transactional // Without this annotation this exception will be thrown
+	// javax.persistence.TransactionRequiredException:
+	// No EntityManager with actual transaction available for current thread - cannot reliably process 'persist' call
+	// It's because of that entity manager needs Persistence Context to send data to database
+	public void insertNewStudent() {
+		em.persist(new Student("aaa"));
 	}
 
 	@Test
