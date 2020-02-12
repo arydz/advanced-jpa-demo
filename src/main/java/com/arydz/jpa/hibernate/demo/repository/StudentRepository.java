@@ -19,7 +19,7 @@ import javax.transaction.Transactional;
 @Slf4j
 @Repository
 // If we are changing data, we should use transaction
-@Transactional
+@Transactional // Now transaction is provided by class to all methods
 public class StudentRepository {
 
 	@Autowired
@@ -57,4 +57,23 @@ public class StudentRepository {
 		// In this step, hibernate sequence generates id for student
 		entityManager.persist(student);
 	} // At the end of transaction hibernate, will send all changes to DB
+
+	// Now transaction is provided by class to all methods
+	public void someOperationToUnderstandPersistenceContext() {
+		// Database Operation 1 - Retrieve student
+		Student student = entityManager.find(Student.class, 20001L);
+		// Persistence Context (student)
+
+		// Database Operation 2 - Retrieve passport
+		Passport passport = student.getPassport();
+		// Persistence Context (student, passport)
+
+		// Database Operation 3 - Update passport
+		passport.setNumber("X123456");
+		// Persistence Context (student_changed, passport_changed)
+
+		// Database Operation 4 - Update student
+		student.setName("Adrian - Updated");
+		// Persistence Context (student_changed, passport_changed)
+	} // Here all ale changes send out to data base
 }

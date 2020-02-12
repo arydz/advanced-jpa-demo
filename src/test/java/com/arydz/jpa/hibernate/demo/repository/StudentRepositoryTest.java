@@ -2,6 +2,7 @@ package com.arydz.jpa.hibernate.demo.repository;
 
 import com.arydz.jpa.hibernate.demo.DemoApplication;
 import com.arydz.jpa.hibernate.demo.entity.Course;
+import com.arydz.jpa.hibernate.demo.entity.Passport;
 import com.arydz.jpa.hibernate.demo.entity.Student;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -40,4 +41,8 @@ public class StudentRepositoryTest {
 		log.info("Passport -> {}", student.getPassport());
 	}
 
+	@Test
+	public void someTest() {
+		repository.someOperationToUnderstandPersistenceContext();
+	}
 }
