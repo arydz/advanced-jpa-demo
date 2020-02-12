@@ -45,7 +45,7 @@ public class StudentRepository {
 		entityManager.remove(student);
 	}
 
-	public void saveStudentWithPassword() {
+	public void saveStudentWithPassport() {
 
 		Passport passport = new Passport("Z456789");
 		// Hibernate is lazy! It will wait as long as it can before inserting the passport in.
