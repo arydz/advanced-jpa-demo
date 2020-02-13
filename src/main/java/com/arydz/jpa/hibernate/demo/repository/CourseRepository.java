@@ -8,12 +8,14 @@
 package com.arydz.jpa.hibernate.demo.repository;
 
 import com.arydz.jpa.hibernate.demo.entity.Course;
+import com.arydz.jpa.hibernate.demo.entity.Review;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Slf4j
 @Repository
@@ -56,5 +58,36 @@ public class CourseRepository {
 
 		Course courseNext = findById(10001L);
 		courseNext.setName("Jpa in 50 steps - Updated");
+	}
+
+	public void addHardcodedReviewsForCourse() {
+
+		Course course = findById(10003L);
+		log.info("Reviews {}", course.getReviewList());
+		Review reviewOne = new Review("3", "Could be better done!");
+		Review reviewTwo = new Review("2", "Waste of time!");
+
+		// Setting the relationship
+		course.addReview(reviewOne);
+		reviewOne.setCourse(course);
+		course.addReview(reviewTwo);
+		reviewTwo.setCourse(course);
+
+		entityManager.persist(reviewOne);
+		entityManager.persist(reviewTwo);
+	}
+
+	public void addReviewsForCourse(Long courseId, List<Review> reviewList) {
+
+		Course course = findById(courseId);
+		log.info("Reviews {}", course.getReviewList());
+
+		for (Review review : reviewList) {
+
+			course.addReview(review);
+			review.setCourse(course);
+			entityManager.persist(review);
+		}
+
 	}
 }

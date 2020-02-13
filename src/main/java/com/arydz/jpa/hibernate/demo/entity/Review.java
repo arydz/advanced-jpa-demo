@@ -15,11 +15,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "course")
 public class Review {
 
 	@Id
@@ -29,6 +30,10 @@ public class Review {
 	private String rating;
 
 	private String description;
+
+	// Default fetch type is EAGER
+	@ManyToOne
+	private Course course;
 
 	protected Review() {
 	}

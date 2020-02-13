@@ -31,6 +31,7 @@ public class Student {
 	@Column(nullable = false)
 	private String name;
 
+	// Default fetch type is EAGER
 	// THIS IS CALLED : unidirectional relationship - where relation is defined in one way
 	// Creates foreign key of passport table
 	// All one to one relations are default eager fetch, so when retrieving Student we are also getting passport entity

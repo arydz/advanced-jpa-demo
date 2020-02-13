@@ -2,6 +2,7 @@ package com.arydz.jpa.hibernate.demo.repository;
 
 import com.arydz.jpa.hibernate.demo.DemoApplication;
 import com.arydz.jpa.hibernate.demo.entity.Course;
+import com.arydz.jpa.hibernate.demo.entity.Review;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import static org.junit.Assert.*;
 
@@ -35,16 +39,17 @@ public class CourseRepositoryTest {
 	@Autowired
 	CourseRepository repository;
 
-	// Tests are invoked without order!
+	@Autowired
+	EntityManager em;
+
 	@Test
 	public void findById_basic() {
 		Course course = repository.findById(10001L);
 		assertEquals("Jpa in 50 steps", course.getName());
 	}
 
-	// When we writing tests, we want to leave the state of application as it was before running that unit test. For that we can use @DirtiesContext
 	@Test
-	@DirtiesContext	// spring automatically reset the data
+	@DirtiesContext
 	public void deleteById_basic() {
 		repository.deleteById(10002L);
 		Course course = repository.findById(10002L);
@@ -52,7 +57,7 @@ public class CourseRepositoryTest {
 	}
 
 	@Test
-	@DirtiesContext    // spring automatically reset the data
+	@DirtiesContext
 	public void saveById_basic() {
 		Course course = repository.findById(10001L);
 		course.setName("Jpa in 50 steps - Updated");
@@ -67,5 +72,19 @@ public class CourseRepositoryTest {
 	public void playWithEntityManager() {
 
 		repository.playWithEntityManager();
+	}
+
+	@Test
+	@Transactional
+	public void retrieveReviewsForCourse() {
+		Course course = repository.findById(10001L);
+		log.info("{}", course.getReviewList());
+	}
+
+	@Test
+	@Transactional
+	public void retrieveCourseForReview() {
+		Review review = em.find(Review.class,40001L);
+		log.info("{}", review.getCourse());
 	}
 }
