@@ -23,7 +23,7 @@ import javax.persistence.OneToOne;
 @Entity
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "student")
 public class Passport {
 
 	@Id

@@ -7,6 +7,7 @@
  */
 package com.arydz.jpa.hibernate.demo.repository;
 
+import com.arydz.jpa.hibernate.demo.entity.Course;
 import com.arydz.jpa.hibernate.demo.entity.Passport;
 import com.arydz.jpa.hibernate.demo.entity.Student;
 import lombok.extern.slf4j.Slf4j;
@@ -76,4 +77,28 @@ public class StudentRepository {
 		student.setName("Adrian - Updated");
 		// Persistence Context (student_changed, passport_changed)
 	} // Here all ale changes send out to data base
+
+	public void insertStudentAndCourse(Student student, Course course) {
+
+		student.addCourse(course);
+		course.addStudent(student);
+
+		entityManager.persist(student);
+		entityManager.persist(course);
+	}
+
+	public void insertStudentAndCourse() {
+
+		Student student = new Student("Jack");
+		Course course = new Course("Microservices in 100 steps");
+
+		entityManager.persist(student);
+		entityManager.persist(course);
+
+		student.addCourse(course);
+		course.addStudent(student);
+
+		// We can persist only owning side of relation
+		entityManager.persist(student);
+	}
 }

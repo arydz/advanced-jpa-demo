@@ -62,4 +62,13 @@ public class StudentRepositoryTest {
 	public void someTest() {
 		repository.someOperationToUnderstandPersistenceContext();
 	}
+
+	@Test
+	@Transactional
+	public void retrieveStudentAndCourses() {
+		Student student = em.find(Student.class, 20001L);
+		log.info("Student -> {}", student);
+		log.info("Courses -> {}", student.getCourseList());
+	}
+
 }

@@ -25,3 +25,12 @@ INSERT INTO Review(id, rating, description, course_id)
 VALUES (40002, '5' ,'Super', 10001);
 INSERT INTO Review(id, rating, description, course_id)
 VALUES (40003,  '4', 'Awesome!', 10003);
+
+INSERT INTO Student_Course(student_id, course_id)
+VALUES (20001,10001);
+INSERT INTO Student_Course(student_id, course_id)
+VALUES (20002,10001);
+INSERT INTO Student_Course(student_id, course_id)
+VALUES (20003,10001);
+INSERT INTO Student_Course(student_id, course_id)
+VALUES (20003,10003);

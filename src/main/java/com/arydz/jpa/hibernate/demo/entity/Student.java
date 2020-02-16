@@ -16,7 +16,12 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -38,6 +43,23 @@ public class Student {
 	// Eager fetching might cause some performance issues!
 	@OneToOne(fetch = FetchType.LAZY)
 	private Passport passport;
+
+	// Student is an owning side, because there is no mapping
+	// EAGER fetch is not recommended on many to many relationships
+	@ManyToMany
+	// It's optional annotation, it allows us to customize this associative array
+	@JoinTable(name = "STUDENT_COURSE", //
+					joinColumns = @JoinColumn(name = "STUDENT_ID"),
+					inverseJoinColumns = @JoinColumn(name = "COURSE_ID"))
+	private List<Course> courseList = new ArrayList<>();
+
+	public void addCourse(Course course) {
+		this.courseList.add(course);
+	}
+
+	public void removeCourse(Course course) {
+		this.courseList.remove(course);
+	}
 
 	protected Student() {
 	}
