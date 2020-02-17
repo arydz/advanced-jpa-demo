@@ -1,25 +1,22 @@
 package com.arydz.jpa.hibernate.demo;
 
-import com.arydz.jpa.hibernate.demo.entity.Course;
-import com.arydz.jpa.hibernate.demo.entity.Review;
-import com.arydz.jpa.hibernate.demo.entity.Student;
-import com.arydz.jpa.hibernate.demo.repository.CourseRepository;
-import com.arydz.jpa.hibernate.demo.repository.StudentRepository;
+import com.arydz.jpa.hibernate.demo.entity.FullTimeEmployee;
+import com.arydz.jpa.hibernate.demo.entity.PartTimeEmployee;
+import com.arydz.jpa.hibernate.demo.repository.EmployeeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
 
 @Slf4j
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner {
 
 	@Autowired
-	private StudentRepository repository;
+	private EmployeeRepository repository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
@@ -28,9 +25,10 @@ public class DemoApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Student student = new Student("Jack");
-		Course course = new Course("Microservices in 100 steps");
+		repository.insert(new FullTimeEmployee("Jan", new BigDecimal("10000")));
+		repository.insert(new PartTimeEmployee("Julia", new BigDecimal("50")));
 
-		repository.insertStudentAndCourse(student, course);
+		log.info("All FullTimeEmployee {}", repository.findAllFullTimeEmployee());
+		log.info("All PartTimeEmployee {}", repository.findAllPartTimeEmployees());
 	}
 }
