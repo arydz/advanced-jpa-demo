@@ -1,15 +1,6 @@
-/**
- * ------------------------------------------------------------
- * Copyright (c) PUMA SE
- * This software is the proprietary information of PUMA SE
- * All Right Reserved.
- * ------------------------------------------------------------
- */
 package com.arydz.jpa.hibernate.demo.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 

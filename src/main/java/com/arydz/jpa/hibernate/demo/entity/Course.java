@@ -1,10 +1,3 @@
-/**
- * ------------------------------------------------------------
- * Copyright (c) PUMA SE
- * This software is the proprietary information of PUMA SE
- * All Right Reserved.
- * ------------------------------------------------------------
- */
 package com.arydz.jpa.hibernate.demo.entity;
 
 import lombok.Getter;
@@ -14,7 +7,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
