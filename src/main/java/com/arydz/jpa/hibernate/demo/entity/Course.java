@@ -19,7 +19,7 @@ import java.util.List;
 
 @Getter
 @Entity
-@ToString(exclude = {"id", "studentList"})
+@ToString(of = "name")
 @NamedQueries(value = {
 				@NamedQuery(name = "get_all_courses", query = "select c from Course c"),
 				@NamedQuery(name = "get_100_steps_courses", query = "select c from Course c where name like '%100 steps'")

@@ -25,10 +25,5 @@ public class DemoApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		repository.insert(new FullTimeEmployee("Jan", new BigDecimal("10000")));
-		repository.insert(new PartTimeEmployee("Julia", new BigDecimal("50")));
-
-		log.info("All FullTimeEmployee {}", repository.findAllFullTimeEmployee());
-		log.info("All PartTimeEmployee {}", repository.findAllPartTimeEmployees());
 	}
 }

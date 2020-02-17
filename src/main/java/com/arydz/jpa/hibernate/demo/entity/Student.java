@@ -19,7 +19,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString
+@ToString(of = "name")
 public class Student {
 
 	@Id
