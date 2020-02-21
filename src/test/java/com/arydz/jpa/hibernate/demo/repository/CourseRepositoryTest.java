@@ -81,9 +81,31 @@ public class CourseRepositoryTest {
 		log.info("{}", course.getReviewList());
 	}
 
+	// There are two types of @Transactional annotations.
+	// 1. javax.transaction
+	// 2. org.springframework.transaction.annotation
 	@Test
 	@Transactional
 	public void retrieveCourseForReview() {
+		// 1)
+		// If we would communicate with two databases and also MQ (some external interface or MQ)
+		// In single transaction we are making a change to to all of them. We are managing across multiple databases and MQ's then Spring annotation
+		// is recommended.
+		// In our situation it's better to use Spring @Transactional annotation
+		// Database_01
+		// Database_02
+		// MQ
+		//
+		// Using annotation from javax.transaction would be good in case of changing data in one database
+		// Database_01
+		//		update_01
+		//		update_02
+		//
+		// 2)
+		// We also use Spring transactional when we need isolation level support.
+		// @Transactional(isolation = Isolation.READ_COMMITTED
+
+
 		Review review = em.find(Review.class,40001L);
 		log.info("{}", review.getCourse());
 	}
