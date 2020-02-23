@@ -1,5 +1,6 @@
 package com.arydz.jpa.hibernate.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -40,6 +41,7 @@ public class Course {
 	// In many to many relationships, owning side of relation is not important.
 	// Course is not owning side!
 	@ManyToMany(mappedBy = "courseList")
+	@JsonIgnore
 	private List<Student> studentList = new ArrayList<>();
 
 	@CreationTimestamp
