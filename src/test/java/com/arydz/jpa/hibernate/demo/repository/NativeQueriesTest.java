@@ -46,6 +46,8 @@ public class NativeQueriesTest {
 
 	@Test
 	public void nativeQueries_test() {
+		// If we wont to do a Soft Delete, we need to remember that native query doesn't add @Where clause.
+		// Therefore we need to do this on our own : where is_deleted=0
 		List resultList = em.createNativeQuery("select * from Course", Course.class).getResultList();
 		log.info("List {}", resultList);
 	}

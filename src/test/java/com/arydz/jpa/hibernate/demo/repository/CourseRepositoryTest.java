@@ -62,6 +62,11 @@ public class CourseRepositoryTest {
 		assertEquals("Jpa in 50 steps", course1.getName());
 	}
 
+	// Typically it's hard delete where data is just removed from database. Delete query is executed.
+	// We would not have any history of it.
+	// In some cases we would want to keep history of the rows. For that we need to implement Soft Delete.
+	// We are adding a column to database to track whether it's active (deleted) or not.
+	// We are using @SQLDelete and @Where annotations in entity class.
 	@Test
 	@DirtiesContext
 	public void deleteById_basic() {

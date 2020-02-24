@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
@@ -15,6 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,14 @@ import java.util.List;
 				@NamedQuery(name = "get_100_steps_courses", query = "select c from Course c where name like '%100 steps'")
 })
 @Cacheable
+// Those annotations are for Soft Delete - it's mean that row isn't removed from table, but appropriate column (in our example 'is_deleted') stores
+// information, if row was deleted. Below we write appropriate query to do this.
+// Column get updated in the database, however the entity in the cache does not get updated because hibernate doesn't now know at all about what
+// happening in this query. For that we need to create PreRemove hook, which will update entity isDelete attribute to true.
+@SQLDelete(sql = "update course set is_deleted=true where id=?")
+// With annotation @Where we specify that only rows with false value in 'is_delete' column should be return. We want only active rows (not deleted).
+// This clause is added to hibernate query
+@Where(clause = "is_deleted = false") // Native queries doesn't support it
 public class Course {
 
 	@Id
@@ -52,6 +63,14 @@ public class Course {
 	@UpdateTimestamp
 	private LocalDateTime lastUpdatedDate;
 
+	private boolean isDeleted;
+
+	// Without it Course entity would stays outdated comparing to database
+	@PreRemove
+	private void preRemove() {
+		this.isDeleted = true;
+	}
+
 	public void addReview(Review review) {
 		this.reviewList.add(review);
 	}
@@ -67,7 +86,6 @@ public class Course {
 	public void removeReview(Student student) {
 		this.studentList.remove(student);
 	}
-
 
 
 	protected Course() {
