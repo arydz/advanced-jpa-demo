@@ -12,7 +12,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.*;
 
@@ -46,6 +46,20 @@ public class CourseRepositoryTest {
 	public void findById_basic() {
 		Course course = repository.findById(10001L);
 		assertEquals("Jpa in 50 steps", course.getName());
+	}
+
+	@Test
+	@Transactional	// If we remove this annotation, no data will be cached. Two queries will be fired for the same entity!
+	public void findById_firstLevelCache() {
+		// Query is fired to database.
+		Course course = repository.findById(10001L);
+		log.info("First Course retrieved {}", course);
+		// Between those retrieves there are no more any queries fired to database.
+		// That because data for this specified entity is cached (Course with id 10001L).
+		Course course1 = repository.findById(10001L);
+		log.info("First Course retrieved again {}", course1);
+		assertEquals("Jpa in 50 steps", course.getName());
+		assertEquals("Jpa in 50 steps", course1.getName());
 	}
 
 	@Test

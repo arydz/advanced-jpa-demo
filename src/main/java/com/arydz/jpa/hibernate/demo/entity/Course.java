@@ -7,6 +7,7 @@ import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -25,6 +26,7 @@ import java.util.List;
 				@NamedQuery(name = "get_all_courses", query = "select c from Course c"),
 				@NamedQuery(name = "get_100_steps_courses", query = "select c from Course c where name like '%100 steps'")
 })
+@Cacheable
 public class Course {
 
 	@Id
