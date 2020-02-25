@@ -5,6 +5,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -19,7 +21,10 @@ public class Review {
 	@GeneratedValue
 	private Long id;
 
-	private String rating;
+	// Using ordinal enum mapping is risky. We have to keep order of old values, otherwise we would mess our database.
+	// It's not a good practice.
+	@Enumerated(EnumType.STRING)
+	private ReviewRating rating;
 
 	private String description;
 
@@ -30,8 +35,8 @@ public class Review {
 	protected Review() {
 	}
 
-	public Review(String rating, String description) {
-		this.rating = rating;
+	public Review(ReviewRating reviewRating, String description) {
+		this.rating = reviewRating;
 		this.description = description;
 	}
 }

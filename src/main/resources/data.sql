@@ -30,11 +30,11 @@ INSERT INTO Student(id, name, passport_id)
 VALUES (20003, 'Przemek', 30003);
 
 INSERT INTO Review(id, rating, description, course_id)
-VALUES (40001, '5' , 'Great', 10001);
+VALUES (40001, 'FIVE', 'Great', 10001);
 INSERT INTO Review(id, rating, description, course_id)
-VALUES (40002, '5' ,'Super', 10001);
+VALUES (40002, 'FIVE','Super', 10001);
 INSERT INTO Review(id, rating, description, course_id)
-VALUES (40003,  '4', 'Awesome!', 10003);
+VALUES (40003, 'FOUR', 'Awesome!', 10003);
 
 INSERT INTO Student_Course(student_id, course_id)
 VALUES (20001,10001);

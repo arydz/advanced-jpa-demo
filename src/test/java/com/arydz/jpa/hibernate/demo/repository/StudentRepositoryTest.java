@@ -1,6 +1,7 @@
 package com.arydz.jpa.hibernate.demo.repository;
 
 import com.arydz.jpa.hibernate.demo.DemoApplication;
+import com.arydz.jpa.hibernate.demo.entity.Address;
 import com.arydz.jpa.hibernate.demo.entity.Passport;
 import com.arydz.jpa.hibernate.demo.entity.Student;
 import lombok.extern.slf4j.Slf4j;
@@ -64,6 +65,15 @@ public class StudentRepositoryTest {
 		Student student = em.find(Student.class, 20001L);
 		log.info("Student -> {}", student);
 		log.info("Courses -> {}", student.getCourseList());
+	}
+
+	@Test
+	@Transactional
+	public void setAddressDetails() {
+		Student student = em.find(Student.class, 20001L);
+		student.setAddress(new Address("Piotrkowska", "No 1", "Lodz"));
+		em.flush();
+		log.info("Student -> {}", student);
 	}
 
 }

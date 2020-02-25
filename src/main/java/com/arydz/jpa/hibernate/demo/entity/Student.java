@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -28,6 +29,9 @@ public class Student {
 
 	@Column(nullable = false)
 	private String name;
+
+	@Embedded
+	private Address address;
 
 	// Default fetch type is EAGER
 	// THIS IS CALLED : unidirectional relationship - where relation is defined in one way

@@ -2,6 +2,7 @@ package com.arydz.jpa.hibernate.demo.repository;
 
 import com.arydz.jpa.hibernate.demo.entity.Course;
 import com.arydz.jpa.hibernate.demo.entity.Review;
+import com.arydz.jpa.hibernate.demo.entity.ReviewRating;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -57,8 +58,8 @@ public class CourseRepository {
 
 		Course course = findById(10003L);
 		log.info("Reviews {}", course.getReviewList());
-		Review reviewOne = new Review("3", "Could be better done!");
-		Review reviewTwo = new Review("2", "Waste of time!");
+		Review reviewOne = new Review(ReviewRating.THREE, "Could be better done!");
+		Review reviewTwo = new Review(ReviewRating.TWO, "Waste of time!");
 
 		// Setting the relationship
 		course.addReview(reviewOne);
