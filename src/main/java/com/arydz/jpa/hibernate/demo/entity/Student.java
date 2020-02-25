@@ -20,6 +20,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+// We should cautious with toString methods, if we put in it too many fields to print, then it can cause performance issues.
 @ToString(of = "name")
 public class Student {
 
