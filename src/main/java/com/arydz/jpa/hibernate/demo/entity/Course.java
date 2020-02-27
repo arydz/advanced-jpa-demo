@@ -27,6 +27,7 @@ import java.util.List;
 @ToString(of = "name")
 @NamedQueries(value = {
 				@NamedQuery(name = "get_all_courses", query = "select c from Course c"),
+				@NamedQuery(name = "get_all_courses_with_join_fetch", query = "select c from Course c JOIN FETCH c.studentList s"),
 				@NamedQuery(name = "get_100_steps_courses", query = "select c from Course c where name like '%100 steps'")
 })
 @Cacheable
